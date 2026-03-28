@@ -1,7 +1,9 @@
-FROM maven:3.9.9-eclipse-temurin-21-jammy AS BUILD_IMAGE
-COPY . /app  #Copy the entire project to the container
+FROM maven:3.9.9-eclipse-temurin-21-jammy AS build_image
+
 WORKDIR /app
-RUN mvn install -DskipTests  #Build the project and skip tests
+COPY . .
+
+RUN mvn install -DskipTests
 
 FROM tomcat:10-jdk21
 
