@@ -14,7 +14,9 @@ jobs:
 
     steps:
      - name: Checkout Repository 
-       uses: actions/checkout@v3   # Checks out the repository to the runner   
+       uses: actions/checkout@v3   # Checks out the repository to the runner 
+       with:
+          fetch-depth: 0   # Fetches the entire history for all branches and tags   
 
      - name: Mvn Build
        run: mvn clean install   # Builds the project using Maven
@@ -25,6 +27,8 @@ jobs:
     steps:
      - name: Checkout Repository 
        uses: actions/checkout@v3   # Checks out the repository to the runner   
+       with:
+          fetch-depth: 0   # Fetches the entire history for all branches and tags 
 
      - name: Mvn Test
        run: mvn test   # Runs the tests using Maven   
