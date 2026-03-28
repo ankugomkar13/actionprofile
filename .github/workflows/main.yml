@@ -7,11 +7,12 @@ on:
   pull_request:
     branches: 
       - main  
-  workflow_dispatch:  # Allows manual triggering of the workflow from the GitHub Actions tab    
+  workflow_dispatch:    
   schedule:
-    - cron: '0 0 * * *'  # Schedules the workflow to run daily at midnight (UTC)        
+    - cron: '0 0 * * *'        
+
 permissions:
-  contents: read  # Grants read permissions for repository contents to the workflow 
+  contents: read  
 
 jobs:
   build:
@@ -19,22 +20,22 @@ jobs:
 
     steps:
      - name: Checkout Repository 
-       uses: actions/checkout@v3   # Checks out the repository to the runner 
+       uses: actions/checkout@v4
        with:
-          fetch-depth: 0   # Fetches the entire history for all branches and tags   
+          fetch-depth: 0   
 
      - name: Mvn Build
-       run: mvn clean install   # Builds the project using Maven
+       run: mvn clean install  
        
      - name: Upload Build Artifacts (war)
-       uses: actions/upload-artifact@v3  # Uploads build artifacts to be used in subsequent jobs
+       uses: actions/upload-artifact@v4
        with:
-         name: build-artifacts  # Name of the artifact
-         path: target/*.war  # Path to the generated WAR files from the build
+         name: build-artifacts
+         path: target/*.war  
 
      - name: Notify if the build fails
-       if: failure()  # This step will only run if the build fails
-       run: echo "Build failed! Please check the logs for details."  # Sends a notification message to the console
+       if: failure()  
+       run: echo "Build failed! Please check the logs."  
 
 
   Testing:
@@ -42,10 +43,9 @@ jobs:
     needs: build
     steps:
      - name: Checkout Repository 
-       uses: actions/checkout@v3   # Checks out the repository to the runner   
+       uses: actions/checkout@v4
        with:
-          fetch-depth: 0   # Fetches the entire history for all branches and tags 
+          fetch-depth: 0  
 
      - name: Mvn Test
-       run: mvn test   # Runs the tests using Maven   
-      
+       run: mvn test
