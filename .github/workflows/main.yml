@@ -1,4 +1,4 @@
-name: CI/CD Pipeline
+name: CI/CD Pipeline workflow
 
 on:
   push:
@@ -36,7 +36,7 @@ jobs:
        if: failure()  # This step will only run if the build fails
        run: echo "Build failed! Please check the logs for details."  # Sends a notification message to the console
 
-       
+
   Testing:
     runs-on: ubuntu-latest
     needs: build
